@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古建大家—柴泽俊线上纪念展 · 进度看板</title>
+<style>
+  :root {
+    --green: #1a3a2a;
+    --gold: #d4b87a;
+    --cream: #f5f0e0;
+    --green-dark: #0f2319;
+    --green-light: #1e4a36;
+    --gold-light: #e8d5a3;
+    --gold-dark: #a88d4a;
+    --text: #2c2c2c;
+    --text-light: #666;
+    --white: #ffffff;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(26, 58, 42, 0.10);
+    --shadow-lg: 0 8px 40px rgba(26, 58, 42, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: var(--cream);
+    padding: 40px 32px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--green-light), var(--gold-dark));
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border: 1px solid rgba(212, 184, 122, 0.15);
+    border-radius: 50%;
+  }
+  .header-inner {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 1rem;
+    opacity: 0.8;
+    color: var(--gold-light);
+    margin-bottom: 20px;
+    letter-spacing: 0.06em;
+  }
+  .header .phase-badge {
+    display: inline-block;
+    background: rgba(212, 184, 122, 0.18);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Stats Bar ── */
+  .stats-bar {
+    max-width: 900px;
+    margin: -24px auto 0;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .stat-card .stat-value .unit {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-left: 2px;
+  }
+  .stat-card .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 4px;
+    letter-spacing: 0.03em;
+  }
+  .stat-card.accent .stat-value { color: var(--gold-dark); }
+
+  /* ── Main ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--green);
+    margin: 40px 0 20px;
+    padding-left: 14px;
+    border-left: 4px solid var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ── Module Cards ── */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .module-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .module-card .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .module-card .module-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .module-card .module-desc {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* ── Status Badge ── */
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .status-demo     { background: #d9f0df; color: #1a4a2a; }
+  .status-design    { background: #fff3d6; color: #8a6d20; }
+  .status-waiting   { background: #e8e8e8; color: #666; }
+
+  /* ── Progress Ring ── */
+  .progress-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .ring-container {
+    flex-shrink: 0;
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+  .ring-container svg {
+    width: 72px;
+    height: 72px;
+    transform: rotate(-90deg);
+  }
+  .ring-bg {
+    fill: none;
+    stroke: var(--cream);
+    stroke-width: 6;
+  }
+  .ring-fg {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+  }
+  .ring-pct {
+    position: absolute;
+    top: 0; left: 0;
+    width: 72px; height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  /* ── Detail Info ── */
+  .detail-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .detail-info .info-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .detail-info .info-row .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-green  { background: #3a9d5d; }
+  .dot-gold   { background: var(--gold-dark); }
+  .dot-gray   { background: #aaa; }
+
+  /* ── Overall Progress ── */
+  .overall-section {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    color: var(--cream);
+    box-shadow: var(--shadow-lg);
+  }
+  .overall-section .overall-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .overall-section .overall-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--gold-light);
+  }
+  .overall-section .overall-pct {
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+  .overall-section .progress-bar-bg {
+    height: 10px;
+    background: rgba(245, 240, 224, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .overall-section .progress-bar-fg {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 5px;
+    transition: width 1.2s ease;
+    width: 0%;
+  }
+  .overall-section .progress-bar-fg.animated { width: var(--pct); }
+
+  /* ── Timeline Hints ── */
+  .timeline-hint {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .timeline-hint .hint-item {
+    font-size: 0.78rem;
+    opacity: 0.8;
+    padding: 3px 10px;
+    background: rgba(212, 184, 122, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 184, 122, 0.25);
+  }
+  .timeline-hint .hint-item strong {
+    color: var(--gold-light);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    border-top: 1px solid rgba(26, 58, 42, 0.08);
+    margin-top: 24px;
+  }
+  .footer span {
+    color: var(--gold-dark);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .header { padding: 28px 20px 36px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: -18px; padding: 0 12px; }
+    .stat-card { padding: 14px 10px; }
+    .stat-card .stat-value { font-size: 1.4rem; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .module-card { padding: 18px; }
+    .overall-section { padding: 20px; }
+    .main { padding: 24px 12px 32px; }
+    .section-title { margin: 28px 0 14px; }
+  }
+
+  /* ── Animation ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in {
+    animation: fadeInUp 0.5s ease both;
+  }
+  .anim-d1 { animation-delay: 0.1s; }
+  .anim-d2 { animation-delay: 0.2s; }
+  .anim-d3 { animation-delay: 0.3s; }
+  .anim-d4 { animation-delay: 0.4s; }
+  .anim-d5 { animation-delay: 0.5s; }
+  .anim-d6 { animation-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<!-- ═══ Header ═══ -->
+<header class="header">
+  <div class="header-inner">
+    <h1>古建大家—柴泽俊</h1>
+    <p class="subtitle">线上纪念展 ｜ 进度看板</p>
+    <span class="phase-badge">📍 设计阶段</span>
+  </div>
+</header>
+
+<!-- ═══ Stats Bar ═══ -->
+<div class="stats-bar">
+  <div class="stat-card animate-in anim-d1">
+    <div class="stat-value">6<span class="unit">个</span></div>
+    <div class="stat-label">功能模块</div>
+  </div>
+  <div class="stat-card animate-in anim-d2">
+    <div class="stat-value">40<span class="unit">%</span></div>
+    <div class="stat-label">整体方案进度</div>
+  </div>
+  <div class="stat-card animate-in anim-d3">
+    <div class="stat-value">2<span class="unit">版</span></div>
+    <div class="stat-label">Demo 已交付</div>
+  </div>
+  <div class="stat-card accent animate-in anim-d4">
+    <div class="stat-value">30<span class="unit">件</span></div>
+    <div class="stat-label">文物模型已完成</div>
+  </div>
+</div>
+
+<!-- ═══ Main Content ═══ -->
+<main class="main">
+
+  <!-- Overall Progress -->
+  <div class="overall-section animate-in anim-d1">
+    <div class="overall-header">
+      <div class="overall-title">📊 整体推进进度</div>
+      <div class="overall-pct">20%</div>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fg animated" style="--pct: 20%;"></div>
+    </div>
+    <div class="timeline-hint">
+      <div class="hint-item"><strong>已完成：</strong>知识图谱 Demo ×2、30 件文物模型</div>
+      <div class="hint-item"><strong>进行中：</strong>设计图已出、技术细化</div>
+      <div class="hint-item"><strong>待启动：</strong>脚本编写、全景合成、正式开发</div>
+    </div>
+  </div>
+
+  <!-- Module Progress -->
+  <h2 class="section-title">📦 模块进度明细</h2>
+  <div class="modules-grid" id="modulesGrid">
+    <!-- Filled by JS -->
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>辰涵科技 · 数字内容项目组 <span>|</span> 更新于 2026-05-30</p>
+</footer>
+
+<script>
+  const modules = [
+    {
+      name: '知识图谱',
+      desc: '人物/建筑/事件关系网',
+      progress: 30,
+      status: 'demo',
+      statusText: 'Demo 已出两版',
+      info: ['3D 版 Demo ✓', '平面版 Demo ✓', '效果图细节待对齐']
+    },
+    {
+      name: '720 全景场景',
+      desc: '全景 + 30 件文物模型',
+      progress: 20,
+      status: 'design',
+      statusText: '设计中',
+      info: ['30 件文物模型已完成', '全景场景待合成', '交互逻辑设计中']
+    },
+    {
+      name: '卡片互动',
+      desc: '3D 抽屉 + 物理引擎',
+      progress: 15,
+      status: 'design',
+      statusText: '设计中',
+      info: ['交互方案已确认', '技术选型待定', '3D 抽屉效果待验证']
+    },
+    {
+      name: '时间线',
+      desc: '生平大事纪年轴',
+      progress: 10,
+      status: 'waiting',
+      statusText: '设计中',
+      info: ['功能方案已确认', '时间轴结构已定', '设计细化中']
+    },
+    {
+      name: '足迹地图',
+      desc: '凹凸地形 + 点位标记',
+      progress: 5,
+      status: 'waiting',
+      statusText: '设计中',
+      info: ['地图交互方案已定', '地形数据整理中', '标记点位确认中']
+    },
+    {
+      name: '整体方案',
+      statusText: '设计中',
+      info: ['线上展设计图已出', '脚本内容整合中', '页面布局设计中'],
+      desc: '展览分区 & 动线脚本',
+      progress: 40,
+      status: 'design',
+      statusText: '分区已定，脚本待写',
+      info: ['展览分区已确定', '各模块定位已明确', '完整脚本待编写']
+    }
+  ];
+
+  const overall = modules.reduce((s, m) => s + m.progress, 0) / modules.length;
+  document.querySelector('.overall-pct').textContent = Math.round(overall) + '%';
+  document.querySelector('.overall-section .progress-bar-fg').style.setProperty('--pct', overall + '%');
+
+  const statusLabels = {
+    demo:    { cls: 'status-demo',    text: 'Demo 阶段' },
+    design:  { cls: 'status-design',  text: '设计中' },
+    waiting: { cls: 'status-waiting', text: '待开发' }
+  };
+
+  const colors = {
+    demo:    { stroke: 'var(--green)', dot: 'dot-green' },
+    design:  { stroke: 'var(--gold-dark)', dot: 'dot-gold' },
+    waiting: { stroke: '#aaa', dot: 'dot-gray' }
+  };
+
+  const R = 30, C = 66, L = 2 * Math.PI * R;
+
+  function ringHTML(pct, status) {
+    const offset = L - (pct / 100) * L;
+    const colorVar = colors[status]?.stroke || 'var(--gold-dark)';
+    return `
+      <div class="ring-container">
+        <svg viewBox="0 0 72 72">
+          <circle class="ring-bg" cx="36" cy="36" r="${R}"/>
+          <circle class="ring-fg" cx="36" cy="36" r="${R}"
+            stroke="${colorVar}"
+            stroke-dasharray="${L} ${L}"
+            stroke-dashoffset="${offset}"
+            style="transition: stroke-dashoffset 1.2s ease;"/>
+        </svg>
+        <div class="ring-pct">${pct}%</div>
+      </div>`;
+  }
+
+  function cardHTML(m, i) {
+    const st = statusLabels[m.status];
+    const col = colors[m.status];
+    return `
+      <div class="module-card animate-in anim-d${i+2}">
+        <div class="card-top">
+          <div>
+            <div class="module-name">${m.name}</div>
+            <div class="module-desc">${m.desc}</div>
+          </div>
+          <span class="status-badge ${st.cls}">${st.text}</span>
+        </div>
+        <div class="progress-area">
+          ${ringHTML(m.progress, m.status)}
+          <div class="detail-info">
+            ${m.info.map(item => `
+              <div class="info-row">
+                <span class="dot ${col.dot}"></span> ${item}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('modulesGrid').innerHTML = modules.map(cardHTML).join('');
+
+  // Animate rings on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.ring-fg').forEach(el => {
+      el.style.strokeDashoffset = el.style.strokeDashoffset;
+    });
+  });
+</script>
+</body>
+</html>
